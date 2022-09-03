@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Hittable">
+      <UniqueIdentifier>{f7cb1aab-4eee-4c85-a9d1-95614a5d7e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base3D">
+      <UniqueIdentifier>{d4a55d81-3fc6-4fd7-ba9e-6265ef02ffaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Base3D">
+      <UniqueIdentifier>{04fd8cee-7043-42fd-aa9d-9cf729951918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hittable">
+      <UniqueIdentifier>{270fc16e-ce3e-4ed7-bf41-2f01068f0eda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base3D\base3d.cpp">
+      <Filter>Source Files\Base3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base3D\color.cpp">
+      <Filter>Source Files\Base3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base3D\vec3d.cpp">
+      <Filter>Source Files\Base3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Base3D\point.cpp">
+      <Filter>Source Files\Base3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hittable\sphere.cpp">
+      <Filter>Source Files\Hittable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hittable\hittable.cpp">
+      <Filter>Source Files\Hittable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base3D\base3d.hpp">
+      <Filter>Header Files\Base3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base3D\color.hpp">
+      <Filter>Header Files\Base3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base3D\point.hpp">
+      <Filter>Header Files\Base3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Base3D\vec3d.hpp">
+      <Filter>Header Files\Base3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hittable\hittable.hpp">
+      <Filter>Header Files\Hittable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hittable\sphere.hpp">
+      <Filter>Header Files\Hittable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material\Material.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
