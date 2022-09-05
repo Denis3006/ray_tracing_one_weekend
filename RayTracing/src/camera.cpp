@@ -1,6 +1,6 @@
+#include <corecrt_math_defines.h>
 #include "camera.hpp"
-#define _USE_MATH_DEFINES
-#include <math.h>
+#include "Random.hpp"
 
 Camera::Camera(const Point& look_from, const Point& look_at, const Vec3D& vup, double vfov, double aspect_ratio, double aperture, double focus_dist)
 	: lens_radius(aperture / 2), origin(look_from)
@@ -19,7 +19,7 @@ Camera::Camera(const Point& look_from, const Point& look_at, const Vec3D& vup, d
 
 Ray Camera::get_ray(double u, double v) const
 {
-	Vec3D aperture_offset = lens_radius * Vec3D::random3d_in_unit_circle('z');
+	Vec3D aperture_offset = lens_radius * Random::random3d_in_unit_circle('z');
 	Vec3D origin_with_offset = origin + horizontal.normalize() * aperture_offset.e1() + vertical.normalize() * aperture_offset.e2();  // transform into camera coordinates
 	return { origin_with_offset, ll_corner + u * horizontal + v * vertical - origin_with_offset };
 }

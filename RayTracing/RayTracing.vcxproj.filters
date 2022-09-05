@@ -27,63 +27,81 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\camera.cpp">
+    <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ray.cpp">
+    <ClCompile Include="src\Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base3D\base3d.cpp">
+    <ClCompile Include="src\Base3D\Base3d.cpp">
       <Filter>Source Files\Base3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base3D\color.cpp">
+    <ClCompile Include="src\Base3D\Color.cpp">
       <Filter>Source Files\Base3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base3D\vec3d.cpp">
+    <ClCompile Include="src\Base3D\Vec3d.cpp">
       <Filter>Source Files\Base3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base3D\point.cpp">
+    <ClCompile Include="src\Base3D\Point.cpp">
       <Filter>Source Files\Base3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hittable\sphere.cpp">
+    <ClCompile Include="src\Hittable\Sphere.cpp">
       <Filter>Source Files\Hittable</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hittable\hittable.cpp">
+    <ClCompile Include="src\Hittable\Hittable.cpp">
       <Filter>Source Files\Hittable</Filter>
     </ClCompile>
     <ClCompile Include="src\Material\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\camera.hpp">
+    <ClInclude Include="src\Camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ray.hpp">
+    <ClInclude Include="src\Ray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base3D\base3d.hpp">
+    <ClInclude Include="src\Base3D\Base3d.hpp">
       <Filter>Header Files\Base3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base3D\color.hpp">
+    <ClInclude Include="src\Base3D\Color.hpp">
       <Filter>Header Files\Base3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base3D\point.hpp">
+    <ClInclude Include="src\Base3D\Point.hpp">
       <Filter>Header Files\Base3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\Base3D\vec3d.hpp">
+    <ClInclude Include="src\Base3D\Vec3d.hpp">
       <Filter>Header Files\Base3D</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hittable\hittable.hpp">
+    <ClInclude Include="src\Hittable\Hittable.hpp">
       <Filter>Header Files\Hittable</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hittable\sphere.hpp">
+    <ClInclude Include="src\Hittable\Sphere.hpp">
       <Filter>Header Files\Hittable</Filter>
     </ClInclude>
     <ClInclude Include="src\Material\Material.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Random.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

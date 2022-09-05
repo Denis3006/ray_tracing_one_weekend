@@ -1,6 +1,7 @@
 #pragma once
 #include "base3d.hpp"
 
+
 class Color : public Base3D {
 public:
     Color();
@@ -24,8 +25,8 @@ Color true_color_to_arithmetic(const Base3D& true_color);
 
 namespace Colors {
     const Color BLACK(0, 0, 0);
-    const Color WHITE(255, 255, 255);
-    const Color RED(255, 0, 0);
-    const Color GREEN(0, 255, 0);
-    const Color BLUE(0, 0, 255);
+    const Color WHITE(1, 1, 1);
+    const Color RED(1, 0, 0);
+    const Color GREEN(0, 1, 0);
+    const Color BLUE(0, 0, 1);
 }

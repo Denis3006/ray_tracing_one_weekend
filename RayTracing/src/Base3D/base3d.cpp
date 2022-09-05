@@ -1,8 +1,8 @@
-#include <random>
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <assert.h>
 #include "vec3d.hpp"
+
+Base3D::Base3D(): Base3D(0, 0, 0)
+{
+}
 
 Base3D::Base3D(double x, double y, double z)
 {
@@ -139,42 +139,4 @@ Base3D operator+(double first, const Base3D& second)
 Base3D operator*(double first, const Base3D& second)
 {
 	return second * first;
-}
-
-Base3D Base3D::random3d(double min, double max)
-{
-	static std::uniform_real_distribution distribution(min, max);
-	static std::default_random_engine re;
-	return { distribution(re), distribution(re), distribution(re) };
-}
-
-Base3D Base3D::random3d_in_unit_sphere()
-{
-	static std::uniform_real_distribution distribution(0.0, 1.0);
-	static std::default_random_engine re;
-	double r = std::pow(distribution(re), 1/3);
-	double theta = 2 * M_PI * distribution(re);
-	double v = distribution(re);
-	double phi = std::acos(2 * v - 1);
-	return { r * sin(phi) * cos(theta), r * sin(phi) * sin(theta), r * cos(phi) };
-}
-
-Base3D Base3D::random3d_in_unit_circle(char axis)
-{
-	static std::uniform_real_distribution distribution(0.0, 1.0);
-	static std::default_random_engine re;
-	double r = std::sqrt(distribution(re));
-	double phi = 2 * M_PI * distribution(re);
-	switch (axis)
-	{
-	case 'x':
-		return { 0, r * std::cos(phi), r * std::sin(phi) };
-	case 'y':
-		return { r * std::cos(phi), 0, r * std::sin(phi) };
-	case 'z':
-		return { r * std::cos(phi), r * std::sin(phi), 0 };
-	default:
-		assert(true);
-		return { 0, 0, 0 };
-	}
 }

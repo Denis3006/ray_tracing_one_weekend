@@ -1,6 +1,5 @@
 #include "vec3d.hpp"
-#include <cassert>
-
+#include "../Random.hpp"
 
 double Vec3D::distance_to(const Vec3D& other) const
 {
@@ -104,12 +103,12 @@ Vec3D cross(const Vec3D& first, const Vec3D& second) {
 
 Vec3D random_unit_vector()
 {
-	return Vec3D(Base3D::random3d_in_unit_sphere()).normalize();
+	return Vec3D(Random::random3d_in_unit_sphere()).normalize();
 }
 
 Vec3D random_in_hemisphere(const Vec3D& normal)
 {
-	Vec3D rand_vec = Base3D::random3d_in_unit_sphere();
+	Vec3D rand_vec = Random::random3d_in_unit_sphere();
 	return rand_vec.dot(normal) > 0 ? rand_vec : -rand_vec;
 }
 

@@ -137,27 +137,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Base3D\base3d.cpp" />
-    <ClCompile Include="src\Base3D\color.cpp" />
-    <ClCompile Include="src\Base3D\point.cpp" />
-    <ClCompile Include="src\Base3D\vec3d.cpp" />
-    <ClCompile Include="src\camera.cpp" />
-    <ClCompile Include="src\Hittable\hittable.cpp" />
-    <ClCompile Include="src\Hittable\sphere.cpp" />
+    <ClCompile Include="src\Base3D\Base3d.cpp" />
+    <ClCompile Include="src\Base3D\Color.cpp" />
+    <ClCompile Include="src\Base3D\Point.cpp" />
+    <ClCompile Include="src\Base3D\Vec3d.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Hittable\Hittable.cpp" />
+    <ClCompile Include="src\Hittable\Sphere.cpp" />
+    <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Material\Material.cpp" />
-    <ClCompile Include="src\ray.cpp" />
+    <ClCompile Include="src\Random.cpp" />
+    <ClCompile Include="src\Ray.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Base3D\base3d.hpp" />
-    <ClInclude Include="src\Base3D\color.hpp" />
-    <ClInclude Include="src\Base3D\point.hpp" />
-    <ClInclude Include="src\Base3D\vec3d.hpp" />
-    <ClInclude Include="src\camera.hpp" />
-    <ClInclude Include="src\Hittable\hittable.hpp" />
-    <ClInclude Include="src\Hittable\sphere.hpp" />
+    <ClInclude Include="src\Base3D\Base3d.hpp" />
+    <ClInclude Include="src\Base3D\Color.hpp" />
+    <ClInclude Include="src\Base3D\Point.hpp" />
+    <ClInclude Include="src\Base3D\Vec3d.hpp" />
+    <ClInclude Include="src\Camera.hpp" />
+    <ClInclude Include="src\Hittable\Hittable.hpp" />
+    <ClInclude Include="src\Hittable\Sphere.hpp" />
+    <ClInclude Include="src\Image.hpp" />
     <ClInclude Include="src\Material\Material.hpp" />
-    <ClInclude Include="src\ray.hpp" />
+    <ClInclude Include="src\Random.hpp" />
+    <ClInclude Include="src\Ray.hpp" />
+    <ClInclude Include="src\Renderer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

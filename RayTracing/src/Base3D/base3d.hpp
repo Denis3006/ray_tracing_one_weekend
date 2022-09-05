@@ -4,6 +4,8 @@
 
 class Base3D {
 	public:
+		Base3D();
+		Base3D(double x, double y, double z);
 		friend std::ostream& operator<<(std::ostream& out, const Base3D& v);
 
 		Base3D operator-() const;
@@ -25,12 +27,7 @@ class Base3D {
 
 		bool near_zero() const;
 
-		static Base3D random3d(double min, double max);
-		static Base3D random3d_in_unit_sphere();
-		static Base3D random3d_in_unit_circle(char axis = 'z');  // generate a random 3d point in a circle around the given axis (the given coordinate will be 0)
-	protected:
-		Base3D() : Base3D(0, 0, 0) {};
-		Base3D(double x, double y, double z);
+protected:
 		double vec[3];
 
 		double operator[](int i) const;

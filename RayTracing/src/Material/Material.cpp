@@ -1,6 +1,5 @@
-#include "Material.hpp"
-
-#include <random>
+#include "material.hpp"
+#include "../Random.hpp"
 
 const Color& Material::albedo() const
 {
@@ -17,7 +16,7 @@ Ray Lambertian::scatter(const Ray& ray_in, const HitRecord& hit_record) const
 
 Ray Metal::scatter(const Ray& ray_in, const HitRecord& hit_record) const
 {
-	Vec3D scatter_direction = ray_in.direction().reflect(hit_record.normal) + fuzz * Base3D::random3d_in_unit_sphere();
+	Vec3D scatter_direction = ray_in.direction().reflect(hit_record.normal) + fuzz * Random::random3d_in_unit_sphere();
 	if (dot(scatter_direction, hit_record.normal) < 0)
 		scatter_direction = Vec3D({ 0, 0, 0 });
 	return { hit_record.hit_point, scatter_direction };
@@ -32,9 +31,7 @@ Ray Dielectric::scatter(const Ray& ray_in, const HitRecord& hit_record) const
 	r0 *= r0;
 	double reflection_factor = r0 + (1 - r0) * std::pow(1 - cos_theta, 5);
 	Vec3D scatter_direction;
-	static std::uniform_real_distribution<double> distribution(0, 1);
-	static std::default_random_engine gen;
-	if (sin_theta * ri > 1 || reflection_factor > distribution(gen)) { // total reflection
+	if (sin_theta * ri > 1 || reflection_factor > Random::random_double(0, 1)) { // total reflection
 		scatter_direction = ray_in.direction().reflect(hit_record.normal);
 	}
 	else {
