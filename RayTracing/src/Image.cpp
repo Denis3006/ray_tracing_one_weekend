@@ -1,5 +1,8 @@
 #include "image.hpp"
 #include <fstream>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+
+#include "../dependencies/stb/stb_image_write.h"
 
 Image::Image(int image_width, int image_height) : image_width(image_width), image_height(image_height)
 {
@@ -47,6 +50,36 @@ void Image::to_ppm(const std::string& filename) const
 			file << '\n';
 	}
 	file.close();
+}
+
+void Image::to_png(const std::string& filename) const
+{
+	std::vector<unsigned char> data;
+	int number_of_channels = 4;
+	data.reserve(image_data.size() * number_of_channels);
+	for (const auto& color : image_data) {
+		Color pixel_color = arithmetic_to_true_color(color);
+		data.push_back(static_cast<unsigned char>(pixel_color.r()));
+		data.push_back(static_cast<unsigned char>(pixel_color.g()));
+		data.push_back(static_cast<unsigned char>(pixel_color.b()));
+		data.push_back(255);
+	}
+	stbi_write_png(filename.c_str(), image_width, image_height, number_of_channels, data.data(), number_of_channels * image_width);
+}
+
+void Image::to_jpg(const std::string& filename) const
+{
+	std::vector<unsigned char> data;
+	int number_of_channels = 4;
+	data.reserve(image_data.size() * number_of_channels);
+	for (const auto& color : image_data) {
+		Color pixel_color = arithmetic_to_true_color(color);
+		data.push_back(static_cast<unsigned char>(pixel_color.r()));
+		data.push_back(static_cast<unsigned char>(pixel_color.g()));
+		data.push_back(static_cast<unsigned char>(pixel_color.b()));
+		data.push_back(255);
+	}
+	stbi_write_jpg(filename.c_str(), image_width, image_height, number_of_channels, data.data(), number_of_channels * image_width);
 }
 
 const Color& Image::get_pixel(int x, int y) const

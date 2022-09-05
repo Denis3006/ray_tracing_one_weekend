@@ -16,6 +16,8 @@ public:
 	void set_pixel(const Color& color, int x, int y);
 	void gamma_correct(double gamma);
 	void to_ppm(const std::string& filename) const;
+	void to_png(const std::string& filename) const;
+	void to_jpg(const std::string& filename) const;
 private:
 	int image_width, image_height;
 	std::vector<Color> image_data;
