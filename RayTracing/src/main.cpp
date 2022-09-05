@@ -1,5 +1,7 @@
+#include <chrono>
 #include <fstream>
 #include <cmath>
+#include <iostream>
 #include <memory>
 
 #include "Base3D/vec3d.hpp"
@@ -31,8 +33,7 @@ HittableList random_scene()
 	for (int a = -11; a < 11; a++) {
 		for (int b = -11; b < 11; b++) {
 			auto rand_mat = Random::random_double();
-			//auto rand_radius = random_double(0.1, 0.9);
-			auto rand_radius = 0.2;
+			auto radius = 0.2;
 			Point rand_center(a + 0.9 * Random::random_double(), 0.2, b + 0.9 * Random::random_double());
 
 			if (Vec3D(rand_center - Point(4, 0.2, 0)).length() > 0.9) {
@@ -40,20 +41,20 @@ HittableList random_scene()
 					// matte material
 					Color albedo(Random::random3d(0, 1));
 					auto mat = make_shared<Lambertian>(albedo);
-					world.add(std::make_shared<Sphere>(rand_center, rand_radius, mat));
+					world.add(std::make_shared<Sphere>(rand_center, radius, mat));
 				}
 				else if (rand_mat < 0.9) {
 					// metal
 					Color albedo(Random::random3d(0.5, 1));
 					double fuzz(Random::random_double(0, 0.5));
 					auto mat = make_shared<Metal>(albedo, fuzz);
-					world.add(std::make_shared<Sphere>(rand_center, rand_radius, mat));
+					world.add(std::make_shared<Sphere>(rand_center, radius, mat));
 				}
 				else {
 					// glass
 					double refraction_index = Random::random_double(1.3, 2.5);
 					auto mat = make_shared<Dielectric>(refraction_index);
-					world.add(std::make_shared<Sphere>(rand_center, rand_radius, mat));
+					world.add(std::make_shared<Sphere>(rand_center, radius, mat));
 				}
 			}
 		}
@@ -67,7 +68,7 @@ int main(int argc, const char* argv[])
 	const double aspect_ratio = 16.0 / 9.0;
 	const double image_height = 1080;
 	const double image_width = round(image_height * aspect_ratio);
-	const int samples_per_pixel = 16;
+	const int samples_per_pixel = 32;
 	const int depth = 8;
 	double gamma = 2;
 
@@ -77,13 +78,17 @@ int main(int argc, const char* argv[])
 	double aperture = dist_to_focus / 100;
 	double vfov = 20;
 	Vec3D vup(0, 1, 0);
-
+	
 	Camera cam(look_from, look_at, vup, vfov, aspect_ratio, aperture, dist_to_focus);
 	HittableList world = random_scene();
 	Image result_image(image_width, image_height);
 	Renderer renderer(std::make_shared<const HittableList>(world), std::make_shared<const Camera>(cam), depth);
 
-	renderer.render(result_image, samples_per_pixel);
+	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+	renderer.async_render(result_image, samples_per_pixel);
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	std::cout << "Runtime = " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "[ms]" << std::endl;
+
 	result_image.gamma_correct(gamma);
 	result_image.to_ppm("./ray_tracing.ppm");
 	result_image.to_png("./ray_tracing.png");

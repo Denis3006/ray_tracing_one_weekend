@@ -30,7 +30,5 @@ public:
 double length_of(const Vec3D& vec);
 double dot(const Vec3D& first, const Vec3D& second);
 Vec3D cross(const Vec3D& first, const Vec3D& second);
-Vec3D random_unit_vector();
-Vec3D random_in_hemisphere(const Vec3D& normal);
 Vec3D reflect(const Vec3D& v, const Vec3D& n);
 Vec3D refract(const Vec3D& v, const Vec3D& n, double refraction_index);

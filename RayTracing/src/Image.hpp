@@ -9,6 +9,7 @@ public:
 	Image() = default;
 	Image(int image_width, int image_height);
 
+	static Image average_images(const std::vector<Image>& images);
 	const Color& get_pixel(int x, int y) const;
 	int get_height() const;
 	int get_width() const;
@@ -22,4 +23,3 @@ private:
 	int image_width, image_height;
 	std::vector<Color> image_data;
 };
-

@@ -100,18 +100,6 @@ Vec3D cross(const Vec3D& first, const Vec3D& second) {
 	return first.cross(second);
 }
 
-
-Vec3D random_unit_vector()
-{
-	return Vec3D(Random::random3d_in_unit_sphere()).normalize();
-}
-
-Vec3D random_in_hemisphere(const Vec3D& normal)
-{
-	Vec3D rand_vec = Random::random3d_in_unit_sphere();
-	return rand_vec.dot(normal) > 0 ? rand_vec : -rand_vec;
-}
-
 Vec3D reflect(const Vec3D& v, const Vec3D& n)
 {
 	return v - 2 * v.dot(n) * n;

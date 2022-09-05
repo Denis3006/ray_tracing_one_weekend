@@ -82,6 +82,17 @@ void Image::to_jpg(const std::string& filename) const
 	stbi_write_jpg(filename.c_str(), image_width, image_height, number_of_channels, data.data(), number_of_channels * image_width);
 }
 
+Image Image::average_images(const std::vector<Image>& images)
+{
+	Image result(images[0].get_width(), images[0].get_height());
+	for (const auto& image : images) {
+		for (int i = 0; i < image.image_data.size(); i++) {
+			result.image_data[i] += image.image_data[i] / images.size();
+		}
+	}
+	return result;
+}
+
 const Color& Image::get_pixel(int x, int y) const
 {
 	return image_data[x + y * image_width];

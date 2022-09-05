@@ -46,4 +46,15 @@ namespace Random
 			return { 0, 0, 0 };
 		}
 	}
+
+	Vec3D random_unit_vector()
+	{
+		return Vec3D(random3d_in_unit_sphere()).normalize();
+	}
+
+	Vec3D random_in_hemisphere(const Vec3D& normal)
+	{
+		Vec3D rand_vec = random3d_in_unit_sphere();
+		return rand_vec.dot(normal) > 0 ? rand_vec : -rand_vec;
+	}
 }

@@ -19,11 +19,11 @@ std::optional<HitRecord> Sphere::hit(const Ray& ray, double t_min, double t_max)
     double half_b = ray.direction().dot(oc);
     double c = oc.length_squared() - r * r;
     double discriminant = half_b * half_b - a * c;
-    HitRecord result;
     if (discriminant < 0) {
         return {};
     }
     else {
+        HitRecord result;
         double root = (- half_b - sqrt(discriminant) ) / a;
         if (root < t_min || root > t_max) {
             root = (- half_b + sqrt(discriminant)) / a;  // try another root

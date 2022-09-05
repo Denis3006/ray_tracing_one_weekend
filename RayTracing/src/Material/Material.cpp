@@ -8,7 +8,7 @@ const Color& Material::albedo() const
 
 Ray Lambertian::scatter(const Ray& ray_in, const HitRecord& hit_record) const
 {
-	Vec3D scatter_direction = random_in_hemisphere(hit_record.normal);
+	Vec3D scatter_direction = Random::random_in_hemisphere(hit_record.normal);
 	if (scatter_direction.near_zero())  // randomly generated direction vector and normal vector are collinear
 		scatter_direction = hit_record.normal;
 	return { hit_record.hit_point, scatter_direction };
