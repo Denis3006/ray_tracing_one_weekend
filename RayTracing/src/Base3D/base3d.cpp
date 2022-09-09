@@ -64,16 +64,18 @@ Base3D& Base3D::operator/=(double k)
 
 Base3D& Base3D::operator=(const Base3D& other)
 {
-	vec[0] = other[0];
-	vec[1] = other[1];
-	vec[2] = other[2];
+	if (this != &other) {
+		vec[0] = other[0];
+		vec[1] = other[1];
+		vec[2] = other[2];
+	}
 	return *this;
 }
 
-bool Base3D::near_zero() const
+bool Base3D::approx_zero() const
 {
-	const double EPSILON = 1e-8;
-	return length_of(*this) < EPSILON;
+	const double EPSILON_SQUARED = 1e-16;
+	return length_squared(*this) < EPSILON_SQUARED;
 }
 
 Base3D& Base3D::operator*=(double k)

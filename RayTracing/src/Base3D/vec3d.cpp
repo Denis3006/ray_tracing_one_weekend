@@ -27,14 +27,14 @@ Vec3D Vec3D::cross(const Vec3D& other) const
 
 Vec3D Vec3D::normalize() const
 {
-	if (length() == 0)
+	if (approx_zero())
 		return *this;
-	return (*this) / (length());
+	return (*this) / length();
 }
 
 bool Vec3D::is_unit() const
 {
-	return length() - 1.0 < std::numeric_limits<double>::epsilon();
+	return std::abs(length() - 1.0) < std::numeric_limits<double>::epsilon();
 }
 
 double Vec3D::length_squared() const
@@ -90,6 +90,11 @@ void Vec3D::set_e3(double e3)
 double length_of(const Vec3D& vec)
 {
 	return vec.length();
+}
+
+double length_squared(const Vec3D& vec)
+{
+	return vec.length_squared();
 }
 
 double dot(const Vec3D& first, const Vec3D& second) {

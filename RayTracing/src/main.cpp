@@ -68,7 +68,7 @@ int main(int argc, const char* argv[])
 	const double aspect_ratio = 16.0 / 9.0;
 	const double image_height = 1080;
 	const double image_width = round(image_height * aspect_ratio);
-	const int samples_per_pixel = 32;
+	const int samples_per_pixel = 16;
 	const int depth = 8;
 	double gamma = 2;
 

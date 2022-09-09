@@ -54,20 +54,19 @@ void Image::to_ppm(const std::string& filename) const
 
 void Image::to_png(const std::string& filename) const
 {
-	std::vector<unsigned char> data;
+	std::vector<unsigned char> data = prepare_output();
 	int number_of_channels = 4;
-	data.reserve(image_data.size() * number_of_channels);
-	for (const auto& color : image_data) {
-		Color pixel_color = arithmetic_to_true_color(color);
-		data.push_back(static_cast<unsigned char>(pixel_color.r()));
-		data.push_back(static_cast<unsigned char>(pixel_color.g()));
-		data.push_back(static_cast<unsigned char>(pixel_color.b()));
-		data.push_back(255);
-	}
 	stbi_write_png(filename.c_str(), image_width, image_height, number_of_channels, data.data(), number_of_channels * image_width);
 }
 
 void Image::to_jpg(const std::string& filename) const
+{
+	std::vector<unsigned char> data = prepare_output();
+	int number_of_channels = 4;
+	stbi_write_jpg(filename.c_str(), image_width, image_height, number_of_channels, data.data(), number_of_channels * image_width);
+}
+
+std::vector<unsigned char> Image::prepare_output() const
 {
 	std::vector<unsigned char> data;
 	int number_of_channels = 4;
@@ -79,14 +78,14 @@ void Image::to_jpg(const std::string& filename) const
 		data.push_back(static_cast<unsigned char>(pixel_color.b()));
 		data.push_back(255);
 	}
-	stbi_write_jpg(filename.c_str(), image_width, image_height, number_of_channels, data.data(), number_of_channels * image_width);
+	return data;
 }
 
 Image Image::average_images(const std::vector<Image>& images)
 {
 	Image result(images[0].get_width(), images[0].get_height());
 	for (const auto& image : images) {
-		for (int i = 0; i < image.image_data.size(); i++) {
+		for (size_t i = 0; i < image.image_data.size(); i++) {
 			result.image_data[i] += image.image_data[i] / images.size();
 		}
 	}

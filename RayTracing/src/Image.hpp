@@ -22,4 +22,5 @@ public:
 private:
 	int image_width, image_height;
 	std::vector<Color> image_data;
+	std::vector<unsigned char> prepare_output() const;
 };

@@ -24,7 +24,7 @@ public:
 	Base3D& operator/=(double k);
 	Base3D& operator=(const Base3D& other);
 
-	bool near_zero() const;
+	bool approx_zero() const;
 
 protected:
 	double vec[3];

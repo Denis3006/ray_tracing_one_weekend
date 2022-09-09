@@ -28,6 +28,7 @@ public:
 };
 
 double length_of(const Vec3D& vec);
+double length_squared(const Vec3D& vec);
 double dot(const Vec3D& first, const Vec3D& second);
 Vec3D cross(const Vec3D& first, const Vec3D& second);
 Vec3D reflect(const Vec3D& v, const Vec3D& n);

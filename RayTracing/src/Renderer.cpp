@@ -6,10 +6,10 @@
 #include <future>
 #include <iostream>
 
-Renderer::Renderer(std::shared_ptr<const HittableList> world, std::shared_ptr<const Camera> camera, int depth) : world(world), camera(camera), max_depth(depth)
+Renderer::Renderer(std::shared_ptr<const HittableList> world, std::shared_ptr<const Camera> camera, int depth) : world(std::move(world)), camera(std::move(camera)), max_depth(depth)
 {}
 
-void Renderer::render(Image& result_image, unsigned int samples_per_pixel)
+void Renderer::render(Image& result_image, unsigned int samples_per_pixel) const
 {
 	double u = 0, v = 0;
 	for (int x = 0; x < result_image.get_width(); x++) {
@@ -28,7 +28,7 @@ void Renderer::render(Image& result_image, unsigned int samples_per_pixel)
 	std::cout << "Ready" << std::endl;
 }
 
-void Renderer::async_render(Image& result_image, unsigned int samples_per_pixel)
+void Renderer::async_render(Image& result_image, unsigned int samples_per_pixel) const
 {
 	const auto n_available_threads = std::thread::hardware_concurrency();
 	auto n_threads = std::min(n_available_threads, samples_per_pixel);
@@ -40,20 +40,23 @@ void Renderer::async_render(Image& result_image, unsigned int samples_per_pixel)
 
 	std::vector<Image> result_images;
 	std::vector<std::future<void>> result_futures;
-	result_futures.reserve(n_threads);
 	result_images.reserve(n_threads);
+	result_futures.reserve(n_threads);
+
 	for (unsigned int thread = 0; thread < n_threads; thread++) {
 		result_images.emplace_back(Image{result_image.get_width(), result_image.get_height()});
 		result_futures.push_back(std::async(&Renderer::render, *this, std::ref(result_images.back()), samples_per_thread));
 	}
+
 	for (auto& future : result_futures)
 		future.get();
+
 	result_image = Image::average_images(result_images);
 }
 
 Color Renderer::ray_color(const Ray& ray, int depth) const
 {
-	const double EPSILON = 0.0001;
+	const double EPSILON = 1e-4;
 	if (depth <= 0)
 		return Colors::BLACK; // no more light is gathered, ray bounce limit exceeded
 	if (const auto record = world->hit(ray, EPSILON, INFINITY); record) { // ray hit something
@@ -74,9 +77,3 @@ Color Renderer::ambient_color(const Ray& ray)
 	Color end_color(0.5, 0.7, 1.0);
 	return (1 - t) * start_color + t * end_color;
 }
-
-void Renderer::test(unsigned int samples_per_pixel)
-{
-	auto x = 1;
-}
-

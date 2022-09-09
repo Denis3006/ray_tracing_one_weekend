@@ -11,7 +11,7 @@ class Camera {
 		Ray get_ray(double u, double v) const;
    private:
 		double viewport_width, viewport_height, lens_radius;
-		Vec3D horizontal, vertical;
+		Vec3D horizontal, vertical, horziontal_unit, vertical_unit;
 		Point origin;
 		Point ll_corner;
 };
