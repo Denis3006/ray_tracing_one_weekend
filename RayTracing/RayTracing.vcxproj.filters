@@ -45,9 +45,6 @@
     <ClCompile Include="src\Base3D\Vec3d.cpp">
       <Filter>Source Files\Base3D</Filter>
     </ClCompile>
-    <ClCompile Include="src\Base3D\Point.cpp">
-      <Filter>Source Files\Base3D</Filter>
-    </ClCompile>
     <ClCompile Include="src\Hittable\Sphere.cpp">
       <Filter>Source Files\Hittable</Filter>
     </ClCompile>

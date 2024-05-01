@@ -115,6 +115,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
+      <AdditionalIncludeDirectories>dependencies/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +135,8 @@
       </UndefinePreprocessorDefinitions>
       <Optimization>Full</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <AdditionalIncludeDirectories>dependencies/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +148,6 @@
   <ItemGroup>
     <ClCompile Include="src\Base3D\Base3d.cpp" />
     <ClCompile Include="src\Base3D\Color.cpp" />
-    <ClCompile Include="src\Base3D\Point.cpp" />
     <ClCompile Include="src\Base3D\Vec3d.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Hittable\Hittable.cpp" />

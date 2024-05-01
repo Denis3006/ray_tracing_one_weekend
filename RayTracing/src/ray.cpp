@@ -1,16 +1,16 @@
 #include "ray.hpp"
 
-Point Ray::at(double t) const
+Point Ray::at(float t) const
 {
-   return orig + (t * dir);
+	return orig + (t * dir);
 }
 
 const Point& Ray::origin() const
 {
-   return orig;
+	return orig;
 }
 
-const Vec3D& Ray::direction() const
+const glm::vec3& Ray::direction() const
 {
-   return dir;
+	return dir;
 }

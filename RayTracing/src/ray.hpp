@@ -1,15 +1,16 @@
 #pragma once
-#include "Base3D/point.hpp"
-#include "Base3D/vec3d.hpp"
+#include <glm/vec3.hpp>
+
+#include "Utils.hpp"
 
 class Ray {
 	public:
-		Ray() = default;
-		Ray(const Point& origin, const Vec3D& direction) : orig(origin), dir(direction) {}
-		Point at(double t) const;
+		Ray() : Ray({ 0, 0, 0 }, { 0, 0, 0 }) {}
+		Ray(const Point& origin, const glm::vec3& direction) : orig(origin), dir(direction) {}
+		Point at(float t) const;
 		const Point& origin() const;
-		const Vec3D& direction() const;
+		const glm::vec3& direction() const;
 	private:
 		Point orig;
-		Vec3D dir;
+		glm::vec3 dir;
 };
