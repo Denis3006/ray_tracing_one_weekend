@@ -9,18 +9,19 @@
 Renderer::Renderer(std::shared_ptr<const HittableList> world, std::shared_ptr<const Camera> camera, int depth) : world(std::move(world)), camera(std::move(camera)), max_depth(depth)
 {}
 
-void Renderer::render(Image& result_image, unsigned int samples_per_pixel) const
+void Renderer::render(Image& result_image, int start_row, int end_row, unsigned samples_per_pixel) const
 {
 	double u = 0, v = 0;
-	for (int x = 0; x < result_image.get_width(); x++) {
+	for (int y = start_row; y < end_row; y++) {
+		uint32_t state = (y * 9781 + result_image.get_width() * 6271) | 1;
 		//std::cout << "Rendering column " << x << " out of " << result_image.get_width() << std::endl;
-		for (int y = 0; y < result_image.get_height(); y++) {
+		for (int x = 0; x < result_image.get_width(); x++) {
 			Color pixel_color;
 			for (int s = 0; s < samples_per_pixel; s++) {
-				u = (x + Random::random_double()) / result_image.get_width();
-				v = (result_image.get_height() - y - 1 + Random::random_double()) / result_image.get_height();
-				Ray ray = camera->get_ray(u, v);
-				pixel_color += ray_color(ray, max_depth);
+				u = (x + Random::random_double(state)) / result_image.get_width();
+				v = (result_image.get_height() - y - 1 + Random::random_double(state)) / result_image.get_height();
+				Ray ray = camera->get_ray(u, v, state);
+				pixel_color += ray_color(ray, max_depth, state);
 			}
 			result_image.set_pixel(pixel_color / samples_per_pixel, x, y);
 		}
@@ -28,50 +29,50 @@ void Renderer::render(Image& result_image, unsigned int samples_per_pixel) const
 	std::cout << "Ready" << std::endl;
 }
 
+
 void Renderer::async_render(Image& result_image, unsigned int samples_per_pixel) const
 {
 	const auto n_available_threads = std::thread::hardware_concurrency();
-	auto n_threads = std::min(n_available_threads, samples_per_pixel);
-	while (samples_per_pixel % n_threads != 0) {
-		--n_threads;
-	}
+	auto n_threads = n_available_threads;
+
 	std::cout << "Using " << n_threads << " threads" << std::endl;
-	unsigned int samples_per_thread = samples_per_pixel / n_threads;
-
-	std::vector<Image> result_images;
 	std::vector<std::future<void>> result_futures;
-	result_images.reserve(n_threads);
 	result_futures.reserve(n_threads);
-
+	int row_step = result_image.get_height() / n_threads;
 	for (unsigned int thread = 0; thread < n_threads; thread++) {
-		result_images.emplace_back(Image{result_image.get_width(), result_image.get_height()});
-		result_futures.push_back(std::async(&Renderer::render, *this, std::ref(result_images.back()), samples_per_thread));
+		int start_row = row_step * thread;
+		int end_row = std::min(int(start_row + row_step), result_image.get_height());
+		result_futures.push_back(std::async(&Renderer::render, *this, std::ref(result_image), start_row, end_row, samples_per_pixel));
 	}
 
 	for (auto& future : result_futures)
 		future.get();
-
-	result_image = Image::average_images(result_images);
 }
 
-Color Renderer::ray_color(const Ray& ray, int depth) const
+int Renderer::n_rays_rendered() const
+{
+	return rays_rendered;
+}
+
+Color Renderer::ray_color(const Ray& ray, int depth, uint32_t& state) const
 {
 	const double EPSILON = 1e-4;
 	if (depth <= 0)
 		return Colors::BLACK; // no more light is gathered, ray bounce limit exceeded
+	++rays_rendered;
 	if (const auto record = world->hit(ray, EPSILON, INFINITY); record) { // ray hit something
-		Ray reflected_ray = record.value().material->scatter(ray, record.value());
+		Ray reflected_ray = record.value().material->scatter(ray, record.value(), state);
 		if (reflected_ray.direction().length() < EPSILON) {
 			return Colors::BLACK;
 		}
-		return record.value().material->albedo() * ray_color(reflected_ray, --depth);
+		return record.value().material->albedo() * ray_color(reflected_ray, --depth, state);
 	}
 	return ambient_color(ray);  // ray didn't hit anything
 }
 
 Color Renderer::ambient_color(const Ray& ray)
 {
-	double y_component = ray.direction().normalize().e2();
+	double y_component = ray.direction().e2() / ray.direction().length();
 	double t = (1 + y_component) / 2;
 	Color start_color = Colors::WHITE;
 	Color end_color(0.5, 0.7, 1.0);

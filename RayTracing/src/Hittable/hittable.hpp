@@ -26,18 +26,19 @@ struct HitRecord {
 class Hittable {
 	public:
 		virtual std::optional<HitRecord> hit(const Ray& ray, double t_min, double t_max) const = 0;
+		virtual std::optional<double> get_t_if_hit(const Ray& ray, double t_min, double t_max) const = 0;
+		virtual HitRecord get_hit_results(const Ray& ray, double t) const = 0;
 };
 
 
-class HittableList : public Hittable {
+class HittableList{
    public:
       HittableList() = default;
       HittableList(const std::shared_ptr<Hittable>);
 
       void add(const std::shared_ptr<Hittable>);
       void clear();
-      std::optional<HitRecord> hit(const Ray& ray, double t_min, double t_max) const override;
-
+      std::optional<HitRecord> hit(const Ray& ray, double t_min, double t_max) const;
    private:
       std::vector<std::shared_ptr<Hittable>> list;
 };

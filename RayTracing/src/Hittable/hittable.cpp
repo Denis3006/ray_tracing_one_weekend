@@ -17,16 +17,18 @@ void HittableList::clear()
 
 std::optional<HitRecord> HittableList::hit(const Ray& ray, double t_min, double t_max) const
 {
-   double closest_so_far = t_max;
-   std::optional<HitRecord> result = std::nullopt;
-   for (const auto& obj : list) {
-      auto temp_result = obj->hit(ray, t_min, closest_so_far);
-      if (temp_result) {
-         result = temp_result;
-         closest_so_far = result.value().t;
-      }
-   }
-   return result;
+	double closest_t_so_far = t_max;
+	std::shared_ptr<Hittable> hit_obj = nullptr;
+	for (const auto& obj : list) {
+		auto temp_result = obj->get_t_if_hit(ray, t_min, closest_t_so_far);
+		if (temp_result && temp_result.value() < closest_t_so_far) {
+			closest_t_so_far = temp_result.value();
+			hit_obj = obj;
+		}
+	}
+	if (hit_obj != nullptr)
+		return hit_obj->get_hit_results(ray, closest_t_so_far);
+	return {};
 }
 
 

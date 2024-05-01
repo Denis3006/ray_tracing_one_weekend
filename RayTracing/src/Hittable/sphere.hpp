@@ -8,7 +8,9 @@ public:
 
     const Point& center() const;
     double radius() const;
-    virtual std::optional<HitRecord> hit(const Ray& ray, double t_min, double t_max) const override;
+    std::optional<HitRecord> hit(const Ray& ray, double t_min, double t_max) const override;
+    std::optional<double> get_t_if_hit(const Ray& ray, double t_min, double t_max) const override;
+    HitRecord get_hit_results(const Ray& ray, double t) const override;
 
 private:
     const Point C;

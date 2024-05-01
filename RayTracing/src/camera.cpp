@@ -17,9 +17,9 @@ Camera::Camera(const Point& look_from, const Point& look_at, const Vec3D& vup, d
 }
 
 
-Ray Camera::get_ray(double u, double v) const
+Ray Camera::get_ray(double u, double v, uint32_t& state) const
 {
-	Vec3D aperture_offset = lens_radius * Random::random3d_in_unit_circle('z');
+	Vec3D aperture_offset = lens_radius * Random::random3d_in_unit_circle(state, 'z');
 	Vec3D origin_with_offset = origin + horziontal_unit * aperture_offset.e1() + vertical_unit * aperture_offset.e2();  // transform into camera coordinates
 	return { origin_with_offset, ll_corner + u * horizontal + v * vertical - origin_with_offset };
 }
