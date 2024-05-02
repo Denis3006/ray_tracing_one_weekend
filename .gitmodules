@@ -1,3 +1,6 @@
 [submodule "RayTracing/dependencies/stb"]
 	path = RayTracing/dependencies/stb
 	url = https://github.com/nothings/stb.git
+[submodule "RayTracing/dependencies/glm"]
+	path = RayTracing/dependencies/glm
+	url = git@github.com:g-truc/glm.git
