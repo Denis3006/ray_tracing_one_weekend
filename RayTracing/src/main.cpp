@@ -45,13 +45,13 @@ HittableList random_scene()
 				else if (rand_mat < 0.9) {
 					// metal
 					Color::Color albedo(-Random::random3d(0.5, state) + 1.0f);
-					double fuzz(Random::random_float(state, 0.5));
+					float fuzz(Random::random_float(state, 0.5));
 					auto mat = make_shared<Metal>(albedo, fuzz);
 					world.add(std::make_shared<Sphere>(rand_center, radius, mat));
 				}
 				else {
 					// glass
-					double refraction_index = 1.3 + Random::random_float(state, 1.2);
+					float refraction_index = 1.3f + Random::random_float(state, 1.2f);
 					auto mat = make_shared<Dielectric>(refraction_index);
 					world.add(std::make_shared<Sphere>(rand_center, radius, mat));
 				}
@@ -91,18 +91,18 @@ HittableList aras_p()
 int main(int argc, const char* argv[])
 {
 	// Image
-	const double aspect_ratio = 16.0 / 9.0;
-	const double image_height = 1080;
-	const double image_width = round(image_height * aspect_ratio);
-	const int samples_per_pixel = 16;
+	const float aspect_ratio = 16.0f / 9.0f;
+	const int image_height = 1080;
+	const int image_width = round(image_height * aspect_ratio);
+	const int samples_per_pixel = 32;
 	const int depth = 8;
-	double gamma = 2.2;
+	float gamma = 2.2f;
 
 	Point look_from(13, 2, 3);
 	Point look_at(0, 0, 0);
-	double dist_to_focus = 10;
-	double aperture = dist_to_focus / 100;
-	double vfov = 20;
+	float dist_to_focus = 10;
+	float aperture = dist_to_focus / 100;
+	float vfov = 20;
 	glm::vec3 vup(0, 1, 0);
 	
 	//Point look_from(0, 2, 3);

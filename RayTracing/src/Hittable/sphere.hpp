@@ -8,9 +8,8 @@ public:
     const Point& center() const;
     float radius() const;
     std::optional<HitRecord> hit(const Ray& ray, float t_min, float t_max) const override;
-    std::optional<float> get_t_if_hit(const Ray& ray, float t_min, float t_max) const override;
+    float get_t_if_hit(const Ray& ray, float t_min, float t_max) const override;
     HitRecord get_hit_results(const Ray& ray, float t) const override;
-
 private:
     const Point C;
     const float r;

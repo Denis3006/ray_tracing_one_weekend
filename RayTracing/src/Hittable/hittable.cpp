@@ -21,12 +21,12 @@ std::optional<HitRecord> HittableList::hit(const Ray& ray, float t_min, float t_
 	std::shared_ptr<Hittable> hit_obj = nullptr;
 	for (const auto& obj : list) {
 		auto temp_result = obj->get_t_if_hit(ray, t_min, closest_t_so_far);
-		if (temp_result && temp_result.value() < closest_t_so_far) {
-			closest_t_so_far = temp_result.value();
+		if (temp_result < closest_t_so_far) {
+			closest_t_so_far = temp_result;
 			hit_obj = obj;
 		}
 	}
-	if (hit_obj != nullptr)
+	if (hit_obj)
 		return hit_obj->get_hit_results(ray, closest_t_so_far);
 	return {};
 }

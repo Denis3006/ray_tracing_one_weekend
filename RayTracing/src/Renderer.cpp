@@ -3,7 +3,6 @@
 #include <future>
 #include <iostream>
 
-
 #include "Utils.hpp"
 #include "Hittable/Hittable.hpp"
 #include "Material/Material.hpp"
@@ -59,7 +58,7 @@ int Renderer::n_rays_rendered() const
 
 Color::Color Renderer::ray_color(const Ray& ray, int depth, uint32_t& state) const
 {
-	const float EPSILON = 1e-4;
+	const float EPSILON = 1e-4f;
 	if (depth <= 0)
 		return Color::Colors::BLACK; // no more light is gathered, ray bounce limit exceeded
 	++rays_rendered;

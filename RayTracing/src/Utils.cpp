@@ -58,8 +58,7 @@ namespace Random
 	{
 		float r = std::pow(random_float(state, 1), 1 / 3);
 		float theta = random_float(state, 2 * M_PI);
-		float v = random_float(state, 1);
-		float phi = std::acos(2 * v - 1);
+		float phi = std::acos(random_float(state, 1));
 		return { r * std::sin(phi) * std::cos(theta), r * std::sin(phi) * std::sin(theta), r * std::cos(phi) };
 	}
 
@@ -84,8 +83,7 @@ namespace Random
 	{
 		float r = 1;
 		float theta = random_float(state, 2 * M_PI);
-		float v = random_float(state, 1);
-		float phi = std::acos(2 * v - 1);
+		float phi = std::acos(random_float(state, 1));
 		return { r * std::sin(phi) * std::cos(theta), r * std::sin(phi) * std::sin(theta), r * std::cos(phi) };
 	}
 
@@ -94,4 +92,9 @@ namespace Random
 		glm::vec3 rand_vec = random3d_in_unit_sphere(state);
 		return glm::dot(rand_vec, normal) > 0 ? rand_vec : -rand_vec;
 	}
+}
+
+float length_squared(const glm::vec3& vec)
+{
+	return glm::dot(vec, vec);
 }

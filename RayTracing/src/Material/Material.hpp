@@ -1,6 +1,6 @@
 #pragma once
 #include "../Hittable/hittable.hpp"
-#include "../Base3D/color.hpp"
+#include "../Utils.hpp"
 #include "../ray.hpp"
 
 
@@ -26,7 +26,7 @@ class Metal : public Material
 {
 	public:
 		Metal(const Color::Color& color) : Metal(color, 0) {}
-		Metal(const Color::Color& color, double fuzz) : Material(color), fuzz(fuzz) {};
+		Metal(const Color::Color& color, float fuzz) : Material(color), fuzz(fuzz) {};
 		Ray scatter(const Ray& ray_in, const HitRecord& hit_record, uint32_t& state) const override;
 	private:
 		float fuzz;
@@ -35,8 +35,8 @@ class Metal : public Material
 class Dielectric : public Material
 {
 	public:
-		Dielectric(const Color::Color& color, double refraction_index) : Material(color), refraction_index(refraction_index) {}
-		Dielectric(double refraction_index) : Material({1, 1, 1}), refraction_index(refraction_index) {}
+		Dielectric(const Color::Color& color, float refraction_index) : Material(color), refraction_index(refraction_index) {}
+		Dielectric(float refraction_index) : Material({1, 1, 1}), refraction_index(refraction_index) {}
 		Ray scatter(const Ray& ray_in, const HitRecord& hit_record, uint32_t& state) const override;
 	private:
 		float refraction_index;

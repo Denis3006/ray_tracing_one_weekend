@@ -5,12 +5,13 @@
 
 #include <glm/geometric.hpp>
 
-#include "../Base3D/point.hpp"
+#include "../Utils.hpp"
 #include "../ray.hpp"
 
 class Material;
 
 struct HitRecord {
+	bool valid;
 	Point hit_point;
 	glm::vec3 normal;
 	std::shared_ptr<const Material> material = nullptr;
@@ -27,12 +28,12 @@ struct HitRecord {
 class Hittable {
 	public:
 		virtual std::optional<HitRecord> hit(const Ray& ray, float t_min, float t_max) const = 0;
-		virtual std::optional<float> get_t_if_hit(const Ray& ray, float t_min, float t_max) const = 0;
+		virtual float get_t_if_hit(const Ray& ray, float t_min, float t_max) const = 0;
 		virtual HitRecord get_hit_results(const Ray& ray, float t) const = 0;
 };
 
 
-class HittableList{
+class HittableList {
    public:
       HittableList() = default;
       HittableList(const std::shared_ptr<Hittable>);

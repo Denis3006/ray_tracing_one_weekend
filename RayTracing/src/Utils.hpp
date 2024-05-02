@@ -34,3 +34,4 @@ namespace Random
 
 
 std::ostream& operator<<(std::ostream& out, const Color::Color& v);
+float length_squared(const glm::vec3& vec);
